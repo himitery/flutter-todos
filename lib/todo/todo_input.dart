@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:todos/todo/controller/todo_item_controller.dart';
+import 'package:todos/todo/interfaces/todo_item.dart';
+import 'package:uuid/uuid.dart';
 
 class TodoInput extends StatefulWidget {
   const TodoInput({Key? key}) : super(key: key);
@@ -8,10 +12,18 @@ class TodoInput extends StatefulWidget {
 }
 
 class _TodoInputState extends State<TodoInput> {
+  final controller = Get.put(TodoItemController());
+
   String content = "";
 
-  void addTodo(BuildContext context) {
-    Navigator.pop(context);
+  void addTodo() {
+    if (content.isNotEmpty) {
+      TodoItem todoItem =
+          TodoItem(const Uuid().v4(), content, DateTime.now(), false);
+      controller.addItem(todoItem);
+    }
+
+    Get.back();
   }
 
   @override
@@ -32,7 +44,7 @@ class _TodoInputState extends State<TodoInput> {
                 });
               },
               onSubmitted: (_) {
-                addTodo(context);
+                addTodo();
               },
               decoration: InputDecoration(
                 filled: true,
@@ -47,7 +59,7 @@ class _TodoInputState extends State<TodoInput> {
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.arrow_circle_up),
                   onPressed: () {
-                    addTodo(context);
+                    addTodo();
                   },
                   color: Theme.of(context).primaryColor,
                 ),

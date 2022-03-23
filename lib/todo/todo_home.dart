@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:todos/todo/controller/todo_item_controller.dart';
 import 'package:todos/todo/todo_input.dart';
 
-class TodoHome extends StatefulWidget {
-  const TodoHome({Key? key}) : super(key: key);
+import 'interfaces/todo_item_list.dart';
 
-  @override
-  State<TodoHome> createState() => _TodoHomeState();
-}
+class TodoHome extends StatelessWidget {
+  TodoHome({Key? key}) : super(key: key);
 
-class _TodoHomeState extends State<TodoHome> {
+  final controller = Get.put(TodoItemController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,9 +25,25 @@ class _TodoHomeState extends State<TodoHome> {
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
       ),
-      body: const Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 12,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+          ),
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
+            children: const [
+              TodoItemList(
+                isChecked: false,
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              TodoItemList(
+                isChecked: true,
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

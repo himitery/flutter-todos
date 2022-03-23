@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:todos/todo/todo_home.dart';
 
 void main() {
@@ -10,7 +11,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: "Todos",
       darkTheme: ThemeData(
         primaryColor: Colors.orange[700],
@@ -19,7 +20,7 @@ class App extends StatelessWidget {
       ),
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
-      home: const TodoHome(),
+      home: TodoHome(),
     );
   }
 }
